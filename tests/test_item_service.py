@@ -3,9 +3,6 @@ import re
 import json
 import pytest
 
-# DEBUG
-logging.basicConfig(level=logging.DEBUG)
-
 
 @pytest.mark.usefixtures('app', 'model', 'item_service')
 class TestItemService(object):

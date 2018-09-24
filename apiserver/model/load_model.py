@@ -7,9 +7,6 @@ from sqlalchemy import Index
 
 db = SQLAlchemy()
 
-# DEBUG
-logging.basicConfig(level=logging.DEBUG)
-
 
 class ShoppingList(db.Model):
     __tablename__ = 'shoppinglist'

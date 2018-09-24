@@ -26,11 +26,7 @@ class TestShoppingListService(object):
 
         assert data['id'] > 0
 
-        logging.debug('11 data id', data['id'])
-
         data = shopping_list_service.read_by_id(data['id'])
-
-        logging.debug('22 data', data)
 
         assert data['title'] == 'test-title2'
         assert data['shop_name'] == 'test-name2'

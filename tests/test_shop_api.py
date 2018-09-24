@@ -23,8 +23,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -41,8 +39,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -56,8 +52,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 'ok' == response['data']
@@ -74,8 +68,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -94,8 +86,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert list_id == response['data']['id']
 
@@ -112,8 +102,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -128,10 +116,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
-        logging.debug('response %s', response['data']['next_page'])
-        logging.debug('len(response[data] %s', len(response['data']['shopping_list']))
 
         assert 200 == response['status']
         assert len(response['data']) > 0
@@ -148,8 +132,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -179,8 +161,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -209,8 +189,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -226,47 +204,41 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug("response %s", response)
-
         assert 200 == response['status']
         assert 1 == len(response['data']['shopping_list'])
         assert 1 == response['data']['next_page']
 
-        def test_get_all_lists_by_limit(self, app):
-            data = {
-                'title': 'Shopping Title',
-                'name': 'Shopping Name'
-            }
+    def test_get_all_lists_by_limit(self, app):
+        data = {
+            'title': 'Shopping Title',
+            'name': 'Shopping Name'
+        }
 
-            with app.test_client() as c:
-                rv = c.post('/shop/api/v1/create_list', data=json.dumps(data),
-                            follow_redirects=True, content_type='application/json')
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/create_list', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
 
-            assert rv.status == '200 OK'
-            response = json.loads(rv.data.decode('utf-8'))
+        assert rv.status == '200 OK'
+        response = json.loads(rv.data.decode('utf-8'))
 
-            logging.debug('response %s', response)
+        assert 200 == response['status']
+        assert response['data']['id'] > 0
 
-            assert 200 == response['status']
-            assert response['data']['id'] > 0
+        data = {
+            'limit': 2,
+            'cursor': 0,
+        }
 
-            data = {
-                'limit': 2,
-                'cursor': 0,
-            }
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/get_all_lists', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
 
-            with app.test_client() as c:
-                rv = c.post('/shop/api/v1/get_all_lists', data=json.dumps(data),
-                            follow_redirects=True, content_type='application/json')
+        assert rv.status == '200 OK'
+        response = json.loads(rv.data.decode('utf-8'))
 
-            assert rv.status == '200 OK'
-            response = json.loads(rv.data.decode('utf-8'))
-
-            logging.debug("response %s", response)
-
-            assert 200 == response['status']
-            assert 1 == len(response['data']['shopping_list'])
-            assert None == response['data']['next_page']
+        assert 200 == response['status']
+        assert 1 == len(response['data']['shopping_list'])
+        assert None == response['data']['next_page']
 
     def test_add_items(self, app, item_service):
         data = {
@@ -280,8 +252,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -304,8 +274,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
         assert 'banana' == response['data']['items'][0]['name']
@@ -325,8 +293,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -352,8 +318,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
         assert 'tuna' == response['data']['items'][0]['name']
@@ -373,8 +337,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -401,8 +363,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
         assert 'tuna' == response['data']['items'][0]['name']
@@ -427,8 +387,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
         assert 'tuna' == response['data']['items'][0]['name']
@@ -448,8 +406,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -472,8 +428,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
@@ -496,8 +450,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('get_lists response %s', response)
-
         assert 200 == response['status']
         assert 'banana' == response['data']['items'][0]['name']
         assert 1 == int(response['data']['items'][0]['quantity'])
@@ -514,8 +466,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -538,8 +488,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
@@ -581,8 +529,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -604,8 +550,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
@@ -647,8 +591,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -670,8 +612,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
@@ -713,8 +653,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert response['data']['id'] > 0
 
@@ -736,8 +674,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
@@ -760,8 +696,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('get_lists response %s', response)
-
         assert 200 == response['status']
         assert 'banana' == response['data']['items'][0]['name']
         assert 1 == int(response['data']['items'][0]['quantity'])
@@ -778,8 +712,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('response %s', response)
 
         assert 200 == response['status']
         assert response['data']['id'] > 0
@@ -803,8 +735,6 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
-        logging.debug('response %s', response)
-
         assert 200 == response['status']
         assert 2 == len(response['data']['items'])
         assert 'banana' == response['data']['items'][0]['name']
@@ -825,8 +755,6 @@ class TestShopActions(object):
 
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
-
-        logging.debug('get_lists response %s', response)
 
         assert 200 == response['status']
         assert 'banana' == response['data']['items'][0]['name']
