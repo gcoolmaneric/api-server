@@ -18,9 +18,11 @@ Set up your env name to match env.yaml accordingly such as dev, sandbox, qa or p
 
 You can adjust this parameters when you deploy apiserver to your cloud's environment.
 
-For example, if you use Google Cloud, ENV_NAME can be setup by your projectId.
+For example, if you use Google Cloud, ENV_NAME can be setup by your projectId. 
 
-For local testing, set it up as "dev" below
+Project Id can be dynamically determinated by your deployment commands.
+
+For local testing, please set it as "dev" below
 
 ```
 ENV_NAME = 'dev'
