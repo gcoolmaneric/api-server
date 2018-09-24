@@ -23,7 +23,7 @@ class ItemService(Item):
     @classmethod
     def delete_by_name(cls, name):
         '''
-        Query item by item name
+        Delete item by item name
         '''
         query = (db.session.query(Item)
                  .filter(Item.name == name)
