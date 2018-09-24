@@ -106,6 +106,6 @@ class DatabaseManager(Singleton):
         return False
 
 
-# Initial Dababase Mamager instance and db
+# Initial Dababase Manager instance and db
 database_manager = DatabaseManager()
 db = database_manager.get_db()
