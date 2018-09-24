@@ -156,6 +156,12 @@ def get_all_lists():
         limit = request_data.get('limit', None)
         cursor = request_data.get('cursor', None)
 
+        if not isinstance(limit, int) or limit < 0:
+            return render_error('invalid_request', 'limit is incorrect')
+
+        if not isinstance(cursor, int) or cursor < 0:
+            return render_error('invalid_request', 'cursor is incorrect')
+
         models, next_page = ShoppingService.get_all_list(limit, cursor)
 
         data = {

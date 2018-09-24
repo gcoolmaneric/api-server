@@ -118,8 +118,8 @@ class TestShopActions(object):
         assert response['data']['id'] > 0
 
         data = {
-            'limit': None,
-            'cursor': None,
+            'limit': 1000,
+            'cursor': 0,
         }
 
         with app.test_client() as c:
@@ -135,6 +135,66 @@ class TestShopActions(object):
 
         assert 200 == response['status']
         assert len(response['data']) > 0
+
+    def test_get_all_lists_by_minus_limit(self, app):
+        data = {
+            'title': 'Shopping Title',
+            'name': 'Shopping Name'
+        }
+
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/create_list', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
+
+        assert rv.status == '200 OK'
+        response = json.loads(rv.data.decode('utf-8'))
+
+        logging.debug('response %s', response)
+
+        assert 200 == response['status']
+        assert response['data']['id'] > 0
+
+        data = {
+            'limit': -1,
+            'cursor': 0,
+        }
+
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/get_all_lists', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
+
+        response = json.loads(rv.data.decode('utf-8'))
+        assert 400 == response['status']
+
+    def test_get_all_lists_by_minus_cursor(self, app):
+        data = {
+            'title': 'Shopping Title',
+            'name': 'Shopping Name'
+        }
+
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/create_list', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
+
+        assert rv.status == '200 OK'
+        response = json.loads(rv.data.decode('utf-8'))
+
+        logging.debug('response %s', response)
+
+        assert 200 == response['status']
+        assert response['data']['id'] > 0
+
+        data = {
+            'limit': 100,
+            'cursor': -1,
+        }
+
+        with app.test_client() as c:
+            rv = c.post('/shop/api/v1/get_all_lists', data=json.dumps(data),
+                        follow_redirects=True, content_type='application/json')
+
+        response = json.loads(rv.data.decode('utf-8'))
+        assert 400 == response['status']
 
     def test_get_all_lists_by_limit(self, app):
         data = {
