@@ -161,7 +161,7 @@ Table | Column  |  Type
 Item    |  name |  string
 ShoppingListItem |  shop_list_id | integer
 ShoppingListItem |  item_id | integer
-ShoppingList |  title | integer
+ShoppingList |  title | string
 
 
 # Code Structure
