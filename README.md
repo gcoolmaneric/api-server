@@ -1,6 +1,6 @@
 # Get Started  
 
-First step you need to set up database settings in folder /settings/env.yaml
+First step you need to set up database settings for mysql in folder /settings/env.yaml
 Please modify it as below
 
 ```
