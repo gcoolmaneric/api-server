@@ -57,18 +57,12 @@ def shopping_list_item_service(monkeypatch, app):
 def model(monkeypatch, app):
     model = apiserver.get_model()
 
-    # Ensure no books exist before running. This typically helps if tests
-    # somehow left the database in a bad state.
-    # delete_all_model(model.Item, model.get_by_list)
-    # delete_all_model(model.ShoppingList, model.get_by_list)
-    # delete_all_model(model.ShoppingListItem, model.get_by_list)
-
     yield model
 
-    # Delete all books that we created during tests.
-    # delete_all_model(model.Item, model.get_by_list)
-    # delete_all_model(model.ShoppingList, model.get_by_list)
-    # delete_all_model(model.ShoppingListItem, model.get_by_list)
+    # Delete all models that we created during tests.
+    delete_all_model(model.Item, model.get_by_list)
+    delete_all_model(model.ShoppingList, model.get_by_list)
+    delete_all_model(model.ShoppingListItem, model.get_by_list)
 
 
 @retry(

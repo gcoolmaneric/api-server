@@ -31,8 +31,6 @@ def create_list():
             logging.error('failed to create a shopping list')
             return render_error('internal_server_error', 'Internal server error')
 
-        logging.debug('data %s', data)
-
         return render_response(200, data)
 
     except Exception as e:

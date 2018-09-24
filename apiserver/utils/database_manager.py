@@ -63,7 +63,7 @@ class DatabaseManager(Singleton):
 
     def read_by_id(self, id, model):
         '''
-        Query mode by id
+        Query model by id
         '''
         result = model.query.get(id)
         if not result:

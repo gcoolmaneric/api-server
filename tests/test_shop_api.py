@@ -196,7 +196,7 @@ class TestShopActions(object):
         response = json.loads(rv.data.decode('utf-8'))
         assert 400 == response['status']
 
-    def test_get_all_lists_by_limit(self, app):
+    def test_get_all_lists_by_limit_none_next_page(self, app):
         data = {
             'title': 'Shopping Title',
             'name': 'Shopping Name'
@@ -215,8 +215,8 @@ class TestShopActions(object):
         assert response['data']['id'] > 0
 
         data = {
-            'limit': 2,
-            'cursor': 1,
+            'limit': 1,
+            'cursor': 0,
         }
 
         with app.test_client() as c:
@@ -226,9 +226,47 @@ class TestShopActions(object):
         assert rv.status == '200 OK'
         response = json.loads(rv.data.decode('utf-8'))
 
+        logging.debug("response %s", response)
+
         assert 200 == response['status']
-        assert 2 == len(response['data']['shopping_list'])
-        assert 3 == response['data']['next_page']
+        assert 1 == len(response['data']['shopping_list'])
+        assert 1 == response['data']['next_page']
+
+        def test_get_all_lists_by_limit(self, app):
+            data = {
+                'title': 'Shopping Title',
+                'name': 'Shopping Name'
+            }
+
+            with app.test_client() as c:
+                rv = c.post('/shop/api/v1/create_list', data=json.dumps(data),
+                            follow_redirects=True, content_type='application/json')
+
+            assert rv.status == '200 OK'
+            response = json.loads(rv.data.decode('utf-8'))
+
+            logging.debug('response %s', response)
+
+            assert 200 == response['status']
+            assert response['data']['id'] > 0
+
+            data = {
+                'limit': 2,
+                'cursor': 0,
+            }
+
+            with app.test_client() as c:
+                rv = c.post('/shop/api/v1/get_all_lists', data=json.dumps(data),
+                            follow_redirects=True, content_type='application/json')
+
+            assert rv.status == '200 OK'
+            response = json.loads(rv.data.decode('utf-8'))
+
+            logging.debug("response %s", response)
+
+            assert 200 == response['status']
+            assert 1 == len(response['data']['shopping_list'])
+            assert None == response['data']['next_page']
 
     def test_add_items(self, app, item_service):
         data = {
