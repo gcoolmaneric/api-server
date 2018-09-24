@@ -91,11 +91,11 @@ http://127.0.0.1:8080/shop/api/v1/get_lists
 ShoppingList APIs send to ShoppingService which would process requests and use
 three different data models services to meet business needs.
 
-
+```
 API --> ShoppingService <--> ShoppingListService      <-->  ShoppingList      <--> DatabaseManager <--> ORM  <-->  MYSQL
                         <--> ShoppingListItemService  <-->  ShoppingListItem
                         <--> ItemService              <-->  Item
-
+```
 ShoppingService: Act as an interface to process all ShoppingList business logic
 
 ShoppingListService, ShoppingListItemService, ItemService: define any operations on data models  
@@ -533,7 +533,7 @@ Parameter | Type  | Description
 --------- | ----- | -----------
 items    |  list | a list of item objects
 shopping_list  |  list | a list of ShoppingList objects
-next_page  |  integer | current position
+next_page  |  integer | current position; if cursor+limit > maximum row, then None
 
 ### Example:
 
