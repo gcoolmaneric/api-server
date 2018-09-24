@@ -132,6 +132,7 @@ Column | Type  | Description
 id    |  integer | Primary key
 title |  string    | title
 shop_name |  string    | store name
+date |  datetime    | created date time
 
 ### Table: Item
 
