@@ -86,6 +86,20 @@ http://127.0.0.1:8080/shop/api/v1/get_all_lists
 http://127.0.0.1:8080/shop/api/v1/get_lists
 
 
+### Test 
+
+To save your time to test REST APIs, you can insatll Chrome's plugin postman bewlow.
+
+Insatll postman for Chrome 
+
+https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
+
+
+Download the following config file and import it into postman to test APIs. 
+
+https://drive.google.com/file/d/1J94AeGgkzsbhDkM_4y_ycN5soMPnb5VV/view?usp=sharing
+
+
 # Design  
 
 ShoppingList APIs send to ShoppingService which would process requests and use
