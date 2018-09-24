@@ -176,7 +176,7 @@ class TestShopActions(object):
         response = json.loads(rv.data.decode('utf-8'))
         assert 400 == response['status']
 
-    def test_get_all_lists_by_limit_none_next_page(self, app):
+    def test_get_all_lists_by_limit(self, app):
         data = {
             'title': 'Shopping Title',
             'name': 'Shopping Name'
@@ -208,7 +208,7 @@ class TestShopActions(object):
         assert 1 == len(response['data']['shopping_list'])
         assert 1 == response['data']['next_page']
 
-    def test_get_all_lists_by_limit(self, app):
+    def test_get_all_lists_by_limit_none_next_page(self, app):
         data = {
             'title': 'Shopping Title',
             'name': 'Shopping Name'
