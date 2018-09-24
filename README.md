@@ -57,7 +57,7 @@ python main.py
 
 ```
 
-Once you start the apiserver, it would open port at 8000.
+Once you start the apiserver, it would open port at 8080.
 
 You can test REST APIs as below
 
